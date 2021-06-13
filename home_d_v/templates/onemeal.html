@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %} Meals{% endblock %}
+{% block content %}
+
+<div class="container" style=" padding-bottom: 5%; " >
+  <div class="row pt-5 ">
+      <div class="col-lg-8 col-md-4 col-xd-12">
+        <img src="/static/images/Salads/AMLOU WARM GOATS CHEESE SALAD.jpeg" class="img-fluid image-responsive  img-thumbnail" alt="LVF" >       
+      </div>
+     <div class="col-lg-4 col-md-8 col-xd-12">
+       <h3>AMLOU WARM GOATS CHEESE SALAD</h3>
+       <h3 style="font-size: 1.2rem ;color: red;"> <b> 40 DH</b></h3>
+
+    
+       <p style="font-size: 1.2rem;font-family:adobe-garamond-pro ;" > Super healthy with three basic ingredients:Argan oil,Almonds and Honey</p>     
+      <div class="modal fade " id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold">Order now</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body mx-3">
+            <div class="md-form mb-5">
+              <label data-error="wrong" data-success="right" for="form34">Name</label>
+              <input class="form-control" id="exampleFormControlInput1" placeholder="" name='name' type='text' value='' >  
+            </div>
+
+            <div class="md-form mb-5">
+              <label data-error="wrong" data-success="right" for="form34">Phone Number</label>
+              <input class="form-control" id="exampleFormControlInput1" placeholder="" name='phone' type='text' value='' >  
+           </div>
+
+            <div class="md-form mb-5">
+              <label data-error="wrong" data-success="right" for="form34">Delivery Address</label>
+              <input class="form-control" id="exampleFormControlInput1" placeholder="" name='address' type='text' value='' >  
+           </div>
+           <div class="md-form mb-5">
+            <label data-error="wrong" data-success="right" for="form34">Quantity</label>
+            <input class="form-control" id="exampleFormControlInput1" placeholder="" name='qte' type='text' value='' >  
+         </div>
+        </div>
+          <div class="modal-footer d-flex justify-content-center">
+            <button class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+          </div>
+        </div>
+      </div>
+      </div>
+      <button  class="btn " type="submit" value="Send" data-toggle="modal" data-target="#modalContactForm" >Order now</button>
+      <img src="/static/images/delivery.png" alt="" style="width: 130%;height: 50%; margin-left: 0%;">
+     
+    </div>
+  </div>
+</div>
+
+<div class="container" style=" padding-bottom: 5%; " >
+    <div class="row pt-5 ">
+        <div class="col-lg-8 col-md-4 col-xd-12">
+          <img src="{{repas.image}}" class="img-fluid image-responsive  img-thumbnail" alt="LVF" >       
+        </div>
+       <div class="col-lg-4 col-md-8 col-xd-12">
+         <h3>{{repas.name}}</h3>
+         <h3 style="font-size: 1.2rem ;color: red;"> <b> {{repas.price}}</b></h3>
+         <p style="font-size: 1.2rem;font-family:adobe-garamond-pro ;" >{{repas.categorie}}</p>     
+       </div>
+
+        <div class="modal fade " id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h4 class="modal-title w-100 font-weight-bold">Order now</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body mx-3">
+              <div class="md-form mb-5">
+                <label data-error="wrong" data-success="right" for="form34">Name</label>
+                <input class="form-control" id="exampleFormControlInput1" placeholder="" name='name' type='text' value='' >  
+              </div>
+
+              <div class="md-form mb-5">
+                <label data-error="wrong" data-success="right" for="form34">Phone Number</label>
+                <input class="form-control" id="exampleFormControlInput1" placeholder="" name='phone' type='text' value='' >  
+             </div>
+
+              <div class="md-form mb-5">
+                <label data-error="wrong" data-success="right" for="form34">Delivery Address</label>
+                <input class="form-control" id="exampleFormControlInput1" placeholder="" name='address' type='text' value='' >  
+             </div>
+             <div class="md-form mb-5">
+              <label data-error="wrong" data-success="right" for="form34">Quantity</label>
+              <input class="form-control" id="exampleFormControlInput1" placeholder="" name='qte' type='text' value='' >  
+           </div>
+          </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button class="btn btn-unique">Send <i class="fas fa-paper-plane-o ml-1"></i></button>
+            </div>
+          </div>
+        </div>
+        </div>
+        <button  class="btn " type="submit" value="Send" data-toggle="modal" data-target="#modalContactForm" >Order now</button>
+        <img src="/static/images/delivery.png" alt="" style="width: 130%;height: 50%; margin-left: 0%;">
+       
+      </div>
+    </div>
+</div>
+
+{% endblock %}

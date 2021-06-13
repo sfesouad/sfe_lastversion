@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Meals{% endblock %}
+
+{% block content %}     
+
+<div class="container">
+  <h3 class="text-center pt-3 " style="font-size: 2rem;font-family:adobe-garamond-pro" ><b> MENU OF THE DAY</b></h3>
+  <hr class="hr1 mx-auto">
+ 
+  <div class="row">
+    {% for repa in repas %}
+    <hr class="hr1 mx-auto">
+      <div class="col-lg-4 col-md-6 col-xd12">
+        <a  href="{{url_for('onemeal',id=repa.id)}}"> <img src="{{ repa.image}}"
+            class="img-fluid image-responsive  img-thumbnail" alt="Home" ></a>
+        <H1 class="text-center  " style="font-size: 1.5rem;font-family:adobe-garamond-pro ;"><b>---{{repa.categorie}}---</b></H1>
+
+            <p style="font-size: 1.2rem;font-family:adobe-garamond-pro ;"><b>{{repa.title}}</b><br>
+          <h3 style="font-size: 2rem;color: red;text-align:left; "><b>{{repa.price}}DH</b> </h3>
+        
+      </div>
+    {% endfor %}
+  </div>
+  
+</div>
+
+
+{% endblock content %}
