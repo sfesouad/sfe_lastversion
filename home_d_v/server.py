@@ -2,9 +2,12 @@ from flask import Flask,render_template, request ,redirect, url_for,session
 from flask_sqlalchemy import SQLAlchemy
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, TextAreaField, HiddenField
+from wtforms import StringField, IntegerField, TextAreaField, HiddenField, SelectField, PasswordField, BooleanField
 from flask_wtf.file import FileField , FileAllowed
-import datetime
+from wtforms.validators import InputRequired, Length
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+
 
 
 app=Flask(__name__)
@@ -21,6 +24,9 @@ configure_uploads(app, photos)
 
 db = SQLAlchemy(app)
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
 
 #  ************les tables ************
 
@@ -57,6 +63,27 @@ class AddMessage(FlaskForm):
     address = TextAreaField('address')
     message = TextAreaField('message')
 
+class Admin(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(80))
+
+
+class LoginAdmin(FlaskForm):
+    user = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+    remember = BooleanField('remember')
+
+class RegisterAdmin(FlaskForm):
+    user  = StringField('username', validators=[InputRequired(), Length(min=4, max=15)])
+    email = StringField('email')
+    password = PasswordField('password', validators=[InputRequired(), Length(min=8, max=80)])
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Admin.query.get(int(user_id))
 
 # ************Clients************
 @app.route("/")
@@ -89,9 +116,7 @@ def meals():
     repas=Repas.query.all()
     return render_template("meals.html", repas=repas)
 
-@app.route("/login_client")
-def login_client():
-    return render_template("login_client.html")
+
 
 # ************Admin************
 @app.route("/admin")
@@ -127,10 +152,36 @@ def delete(id):
     return redirect(url_for('admin'))
 
 
+@app.route('/register', methods=['GET','POST'])
+def register():
+    form = RegisterAdmin()
+    if form.validate_on_submit():  
+        newAdmin=Admin(username=form.user.data,email=form.email.data,password=form.password.data)
+        db.session.add(newAdmin)
+        db.session.commit()
+        return redirect(url_for('login'))
 
-@app.route("/login_admin")
-def login_admin():
-    return render_template("login_admin.html")
+    return render_template('register.html',form=form)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+
+@app.route("/login",methods=['POST','GET'])
+def login():
+    form = LoginAdmin()
+    if form.validate_on_submit():
+        user = Admin.query.filter_by(username=form.user.data).first()
+        if user:
+            if user.password == form.password.data:
+                
+                return redirect(url_for('admin'))
+
+        return "password ou email non valider"
+
+    return render_template("login_admin.html",form=form)
 
 
 if __name__ == '__main__':

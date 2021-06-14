@@ -25,19 +25,27 @@
               </div>
               <div class="col-lg-6">
                   <div class="card2 card border-0 px-4 py-5">
-                      <div class="row px-3 mb-4">
-                          <h2 style="font-size: 2rem;"> <b>Login </b></h2> 
-                      </div>
-                      <div class="row px-3"> <label class="mb-1">
-                              <h6 class="mb-0 text-sm">Email Address</h6>
-                          </label> <input class="mb-4" type="text" name="email" placeholder="Enter a valid email address"> </div>
-                      <div class="row px-3"> <label class="mb-1">
-                              <h6 class="mb-0 text-sm">Password</h6>
-                          </label> <input type="password" name="password" placeholder="Enter password"> </div>
-                  
-                      <div class="row mb-3 px-3"> <button type="submit" class="btn btn-blue text-center">Login</button> </div>
+                        <div class="row px-3 mb-4">
+                            <h2 style="font-size: 2rem;"> <b>Login </b></h2> 
+                        </div>
+                        <form  class="login" method="POST" action="{{ url_for('login') }}" enctype="multipart/form-data">
+                            {{ form.csrf_token }}
+                            <label class="mb-1"><h6 class="mb-0 text-sm">Username</h6></label> 
+                            {{form.user(class='form-control',placeholder="Username")}} <br>
+                            <label class="mb-1"><h6 class="mb-0 text-sm">Password</h6></label> 
+                            {{form.password(class='form-control',placeholder='Password')}}<br>
+                            {{form.remember(class='remember')}}<span>Remember me</span>  <br>
+
+
+                            <div class="row mb-3 px-3"> 
+                                <button type="submit" class="btn btn-blue text-center">Login</button> 
+                            </div>
+                            <a href="{{url_for('register')}}">Sigup</a>
+
+                        </form>
                   </div>
               </div>
+
           </div>
           <footer class="text-center">
              <div class="text-center text-dark p-3" style="background-color:rgb(255, 255, 101);">
